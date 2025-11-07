@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>天堂私服 - 怪物施法無動作分析 | Husky Lab X</title>
+    <meta name="author" content="Husky Timo" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>HUSKY LAB X</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;HUSKY LAB X</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>天堂私服 - 怪物施法無動作分析</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/11/6
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E5%A4%A9%E5%A0%82%E7%A7%81%E6%9C%8D/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                天堂私服
+            </a>
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>最近越來越多 1.82C 仿正的伺服器出現<br>所謂仿正應該就是要越像正服越好, 但是看到不少伺服器都做的有點粗糙,<br>例如怪物&#x2F;寵物沒有施法動作, 看了就很不原汁原味.</p>
+<p>所以這篇就來分享一下研究結果, 其實道理很簡單, 就是變身檔沒有加入有向攻擊的編碼 -&gt; 編碼 18</p>
+<p>實際調整方式如下:</p>
+<ul>
+<li>確認怪物圖檔編號</li>
+</ul>
+<pre><code class="sql">SELECT * FROM npc WHERE NAME = &#39;狐狸&#39; -- 搜尋抽來的結果有個 gfxid : 1540 就是圖檔編號
+</code></pre>
+<ul>
+<li>變身檔中找到#圖檔編號, 加入 編碼 18, 這邊就看你的施法動作是用哪一個, 這裡是複製 30. 攻擊暴擊的動作</li>
+</ul>
+<pre><code>#1540 48
+0.(1 8,0.0:2 0.1:2 0.2:2 0.3:2 0.4:2 0.5:2 0.6:2 0.7:2)
+3.(1 10,8.9:4 8.0:4 8.1:4 8.2:4 8.3:4 8.4:4 8.5:4 8.6:4 8.7:4 8.8:4)
+1.(1 9,8.0:4 16.0:3 16.1:3 16.2:3&lt;3235&lt;3236 16.3:3&lt;3237 16.4:3! 16.5:3 16.6:4 16.7:4)
+30.(1 9,8.0:4 24.0:4 24.1:4 24.2:4&lt;3239 24.3:4&lt;3240 24.4:4! 24.5:4 24.6:4 24.7:4)
+2.(1 4,8.0:4 32.0:0&lt;704 32.0:4&lt;3238 32.1:4)
+8.(1 6,40.5:4 40.0:4[3241 40.1:4 40.2:4 40.3:4 40.4:4)
+--&gt; 加入 18.(1 9,8.0:4 24.0:4 24.1:4 24.2:4&lt;3239 24.3:4&lt;3240 24.4:4! 24.5:4 24.6:4 24.7:4)
+</code></pre>
+<ul>
+<li>重新編碼登入器</li>
+</ul>
+<p>收工~</p>
+<hr>
+<p>⚖️ 免責聲明</p>
+<p>本部落格主要分享個人開發與技術研究的過程，內容著重在學習程式設計、資料庫結構與系統架構的研究討論。</p>
+<p>文中若有提到遊戲主程式、模擬器、登入器或其他相關內容，僅作為技術說明與研究示例使用，不提供任何下載連結或檔案。</p>
+<p>所有引用的程式或素材皆來自網路公開資源，其著作權與相關權利仍屬原創作者所有。</p>
+<p>本站並無從事任何商業行為或營運活動，僅以學習與研究為目的，沒有修改、散布或侵犯他人版權的意圖。</p>
+<p>若有任何版權疑慮，請來信告知，我會儘速處理。</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Husky Lab X
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Husky Timo
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>
