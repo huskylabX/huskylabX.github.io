@@ -66,7 +66,7 @@
             <div id="loading" v-show="loading">
                 <div id="loading-circle">
                     <h2>LOADING</h2>
-                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <p>載入過慢請開啟快取, 瀏覽器默認開啟</p>
                     <img src="/images/loading.gif" />
                 </div>
             </div>
@@ -197,6 +197,8 @@
     <div class="content" v-pre>
         <p>最近越來越多 1.82C 仿正的伺服器出現<br>所謂仿正應該就是要越像正服越好, 但是看到不少伺服器都做的有點粗糙,<br>例如怪物&#x2F;寵物沒有施法動作, 看了就很不原汁原味.</p>
 <p>所以這篇就來分享一下研究結果, 其實道理很簡單, 就是變身檔沒有加入有向攻擊的編碼 -&gt; 編碼 18</p>
+<span id="more"></span>
+
 <p>實際調整方式如下:</p>
 <ul>
 <li>確認怪物圖檔編號</li>
